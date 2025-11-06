@@ -1,1 +1,54 @@
-import 'package:flutter/material.dart';\nimport 'screens/home_screen.dart';\nimport 'screens/chat_screen.dart';\nimport 'screens/pay_screen.dart';\nimport 'screens/earn_screen.dart';\nimport 'screens/video_screen.dart';\nimport 'screens/market_screen.dart';\n\nvoid main() {\n  runApp(const NexoraApp());\n}\n\nclass NexoraApp extends StatelessWidget {\n  const NexoraApp({super.key});\n\n  @override\n  Widget build(BuildContext context) {\n    return MaterialApp(\n      title: 'Nexora',\n      debugShowCheckedModeBanner: false,\n      theme: ThemeData(\n        useMaterial3: true,\n        colorScheme: ColorScheme.fromSeed(\n          seedColor: const Color(0xFF6C63FF),\n          brightness: Brightness.light,\n        ),\n        scaffoldBackgroundColor: Colors.white,\n        appBarTheme: const AppBarTheme(\n          elevation: 0,\n          centerTitle: true,\n          backgroundColor: Colors.white,\n          foregroundColor: Colors.black,\n        ),\n      ),\n      darkTheme: ThemeData(\n        useMaterial3: true,\n        colorScheme: ColorScheme.fromSeed(\n          seedColor: const Color(0xFF6C63FF),\n          brightness: Brightness.dark,\n        ),\n        scaffoldBackgroundColor: const Color(0xFF121212),\n      ),\n      themeMode: ThemeMode.light,\n      home: const HomeScreen(),\n      routes: {\n        '/chat': (context) => const ChatScreen(),\n        '/pay': (context) => const PayScreen(),\n        '/earn': (context) => const EarnScreen(),\n        '/video': (context) => const VideoScreen(),\n        '/market': (context) => const MarketScreen(),\n      },\n    );\n  }\n}\n
+import 'package:flutter/material.dart';
+import 'screens/home_screen.dart';
+import 'screens/chat_screen.dart';
+import 'screens/pay_screen.dart';
+import 'screens/earn_screen.dart';
+import 'screens/video_screen.dart';
+import 'screens/market_screen.dart';
+
+void main() {
+  runApp(const NexoraApp());
+}
+
+class NexoraApp extends StatelessWidget {
+  const NexoraApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Nexora',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF6C63FF),
+          brightness: Brightness.light,
+        ),
+        scaffoldBackgroundColor: Colors.white,
+        appBarTheme: const AppBarTheme(
+          elevation: 0,
+          centerTitle: true,
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+        ),
+      ),
+      darkTheme: ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF6C63FF),
+          brightness: Brightness.dark,
+        ),
+        scaffoldBackgroundColor: const Color(0xFF121212),
+      ),
+      themeMode: ThemeMode.light,
+      home: const HomeScreen(),
+      routes: {
+        '/chat': (context) => const ChatScreen(),
+        '/pay': (context) => const PayScreen(),
+        '/earn': (context) => const EarnScreen(),
+        '/video': (context) => const VideoScreen(),
+        '/market': (context) => const MarketScreen(),
+      },
+    );
+  }
+}

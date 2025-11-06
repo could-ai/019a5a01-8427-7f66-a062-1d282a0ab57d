@@ -1,1 +1,90 @@
-import 'package:flutter/material.dart';\nimport 'chat_screen.dart';\nimport 'pay_screen.dart';\nimport 'earn_screen.dart';\nimport 'video_screen.dart';\nimport 'market_screen.dart';\n\nclass HomeScreen extends StatefulWidget {\n  const HomeScreen({super.key});\n\n  @override\n  State<HomeScreen> createState() => _HomeScreenState();\n}\n\nclass _HomeScreenState extends State<HomeScreen> {\n  int _currentIndex = 0;\n\n  final List<Widget> _screens = [\n    const ChatScreen(),\n    const PayScreen(),\n    const EarnScreen(),\n    const VideoScreen(),\n    const MarketScreen(),\n  ];\n\n  @override\n  Widget build(BuildContext context) {\n    return Scaffold(\n      body: IndexedStack(\n        index: _currentIndex,\n        children: _screens,\n      ),\n      bottomNavigationBar: Container(\n        decoration: BoxDecoration(\n          boxShadow: [\n            BoxShadow(\n              color: Colors.black.withOpacity(0.1),\n              blurRadius: 10,\n              offset: const Offset(0, -2),\n            ),\n          ],\n        ),\n        child: BottomNavigationBar(\n          currentIndex: _currentIndex,\n          onTap: (index) {\n            setState(() {\n              _currentIndex = index;\n            });\n          },\n          type: BottomNavigationBarType.fixed,\n          backgroundColor: Colors.white,\n          selectedItemColor: const Color(0xFF6C63FF),\n          unselectedItemColor: Colors.grey,\n          selectedFontSize: 12,\n          unselectedFontSize: 12,\n          showSelectedLabels: true,\n          showUnselectedLabels: true,\n          elevation: 0,\n          items: const [\n            BottomNavigationBarItem(\n              icon: Icon(Icons.chat_bubble_outline),\n              activeIcon: Icon(Icons.chat_bubble),\n              label: 'Chat',\n            ),\n            BottomNavigationBarItem(\n              icon: Icon(Icons.account_balance_wallet_outlined),\n              activeIcon: Icon(Icons.account_balance_wallet),\n              label: 'Pay',\n            ),\n            BottomNavigationBarItem(\n              icon: Icon(Icons.monetization_on_outlined),\n              activeIcon: Icon(Icons.monetization_on),\n              label: 'Earn',\n            ),\n            BottomNavigationBarItem(\n              icon: Icon(Icons.play_circle_outline),\n              activeIcon: Icon(Icons.play_circle),\n              label: 'Video',\n            ),\n            BottomNavigationBarItem(\n              icon: Icon(Icons.shopping_bag_outlined),\n              activeIcon: Icon(Icons.shopping_bag),\n              label: 'Market',\n            ),\n          ],\n        ),\n      ),\n    );\n  }\n}\n
+import 'package:flutter/material.dart';
+import 'chat_screen.dart';
+import 'pay_screen.dart';
+import 'earn_screen.dart';
+import 'video_screen.dart';
+import 'market_screen.dart';
+
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _currentIndex = 0;
+
+  final List<Widget> _screens = [
+    const ChatScreen(),
+    const PayScreen(),
+    const EarnScreen(),
+    const VideoScreen(),
+    const MarketScreen(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: IndexedStack(
+        index: _currentIndex,
+        children: _screens,
+      ),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 10,
+              offset: const Offset(0, -2),
+            ),
+          ],
+        ),
+        child: BottomNavigationBar(
+          currentIndex: _currentIndex,
+          onTap: (index) {
+            setState(() {
+              _currentIndex = index;
+            });
+          },
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: Colors.white,
+          selectedItemColor: const Color(0xFF6C63FF),
+          unselectedItemColor: Colors.grey,
+          selectedFontSize: 12,
+          unselectedFontSize: 12,
+          showSelectedLabels: true,
+          showUnselectedLabels: true,
+          elevation: 0,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.chat_bubble_outline),
+              activeIcon: Icon(Icons.chat_bubble),
+              label: 'Chat',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.account_balance_wallet_outlined),
+              activeIcon: Icon(Icons.account_balance_wallet),
+              label: 'Pay',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.monetization_on_outlined),
+              activeIcon: Icon(Icons.monetization_on),
+              label: 'Earn',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.play_circle_outline),
+              activeIcon: Icon(Icons.play_circle),
+              label: 'Video',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.shopping_bag_outlined),
+              activeIcon: Icon(Icons.shopping_bag),
+              label: 'Market',
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
