@@ -1,1 +1,468 @@
-import 'package:flutter/material.dart';\n\nclass MarketScreen extends StatelessWidget {\n  const MarketScreen({super.key});\n\n  @override\n  Widget build(BuildContext context) {\n    return DefaultTabController(\n      length: 3,\n      child: Scaffold(\n        appBar: AppBar(\n          title: const Text(\n            'Nexora Market',\n            style: TextStyle(fontWeight: FontWeight.bold),\n          ),\n          actions: [\n            IconButton(\n              icon: const Icon(Icons.shopping_cart_outlined),\n              onPressed: () {},\n            ),\n            IconButton(\n              icon: const Icon(Icons.favorite_border),\n              onPressed: () {},\n            ),\n          ],\n          bottom: const TabBar(\n            indicatorColor: Color(0xFF6C63FF),\n            labelColor: Color(0xFF6C63FF),\n            unselectedLabelColor: Colors.grey,\n            tabs: [\n              Tab(text: 'Freelancers'),\n              Tab(text: 'Products'),\n              Tab(text: 'Services'),\n            ],\n          ),\n        ),\n        body: TabBarView(\n          children: [\n            _buildFreelancersTab(),\n            _buildProductsTab(),\n            _buildServicesTab(),\n          ],\n        ),\n        floatingActionButton: FloatingActionButton.extended(\n          onPressed: () {},\n          backgroundColor: const Color(0xFF6C63FF),\n          icon: const Icon(Icons.add, color: Colors.white),\n          label: const Text(\n            'Sell / Offer',\n            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),\n          ),\n        ),\n      ),\n    );\n  }\n\n  Widget _buildFreelancersTab() {\n    return ListView(\n      padding: const EdgeInsets.all(16),\n      children: [\n        _buildSearchBar(),\n        const SizedBox(height: 16),\n        const Text(\n          'Top Freelancers',\n          style: TextStyle(\n            fontSize: 18,\n            fontWeight: FontWeight.bold,\n          ),\n        ),\n        const SizedBox(height: 12),\n        _buildFreelancerCard(\n          'Sarah Design Pro',\n          'UI/UX Designer',\n          '\$50/hour',\n          '4.9',\n          '127 projects',\n          Icons.design_services,\n          const Color(0xFF6C63FF),\n          true,\n        ),\n        _buildFreelancerCard(\n          'John Code Master',\n          'Full Stack Developer',\n          '\$75/hour',\n          '5.0',\n          '243 projects',\n          Icons.code,\n          const Color(0xFF00D4AA),\n          true,\n        ),\n        _buildFreelancerCard(\n          'Emma Content Writer',\n          'Content & Copywriter',\n          '\$30/hour',\n          '4.8',\n          '89 projects',\n          Icons.edit_note,\n          const Color(0xFFFF6B6B),\n          false,\n        ),\n        _buildFreelancerCard(\n          'Mike Video Expert',\n          'Video Editor',\n          '\$45/hour',\n          '4.7',\n          '156 projects',\n          Icons.video_library,\n          const Color(0xFFFFB800),\n          false,\n        ),\n      ],\n    );\n  }\n\n  Widget _buildProductsTab() {\n    return GridView.builder(\n      padding: const EdgeInsets.all(16),\n      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(\n        crossAxisCount: 2,\n        childAspectRatio: 0.75,\n        crossAxisSpacing: 12,\n        mainAxisSpacing: 12,\n      ),\n      itemCount: 10,\n      itemBuilder: (context, index) {\n        return _buildProductCard(\n          'Product ${index + 1}',\n          '\$${(index + 1) * 25}.99',\n          '4.${5 + (index % 5)}',\n          '${(index + 1) * 12} sold',\n        );\n      },\n    );\n  }\n\n  Widget _buildServicesTab() {\n    return ListView(\n      padding: const EdgeInsets.all(16),\n      children: [\n        _buildSearchBar(),\n        const SizedBox(height: 16),\n        const Text(\n          'Popular Services',\n          style: TextStyle(\n            fontSize: 18,\n            fontWeight: FontWeight.bold,\n          ),\n        ),\n        const SizedBox(height: 12),\n        _buildServiceCard(\n          'Logo Design',\n          'Professional logo design for your brand',\n          'Starting at \$99',\n          Icons.palette,\n          const Color(0xFF6C63FF),\n        ),\n        _buildServiceCard(\n          'Web Development',\n          'Custom website development from scratch',\n          'Starting at \$499',\n          Icons.language,\n          const Color(0xFF00D4AA),\n        ),\n        _buildServiceCard(\n          'SEO Optimization',\n          'Boost your website ranking on Google',\n          'Starting at \$199',\n          Icons.trending_up,\n          const Color(0xFFFF6B6B),\n        ),\n        _buildServiceCard(\n          'Social Media Marketing',\n          'Grow your social media presence',\n          'Starting at \$149',\n          Icons.share,\n          const Color(0xFFFFB800),\n        ),\n      ],\n    );\n  }\n\n  Widget _buildSearchBar() {\n    return Container(\n      padding: const EdgeInsets.symmetric(horizontal: 16),\n      decoration: BoxDecoration(\n        color: Colors.grey[100],\n        borderRadius: BorderRadius.circular(12),\n      ),\n      child: const TextField(\n        decoration: InputDecoration(\n          hintText: 'Search...',\n          border: InputBorder.none,\n          icon: Icon(Icons.search, color: Colors.grey),\n        ),\n      ),\n    );\n  }\n\n  Widget _buildFreelancerCard(\n    String name,\n    String title,\n    String rate,\n    String rating,\n    String projects,\n    IconData icon,\n    Color color,\n    bool isVerified,\n  ) {\n    return Container(\n      margin: const EdgeInsets.only(bottom: 12),\n      padding: const EdgeInsets.all(16),\n      decoration: BoxDecoration(\n        color: Colors.grey[100],\n        borderRadius: BorderRadius.circular(12),\n      ),\n      child: Row(\n        children: [\n          Container(\n            width: 60,\n            height: 60,\n            decoration: BoxDecoration(\n              color: color.withOpacity(0.1),\n              borderRadius: BorderRadius.circular(12),\n            ),\n            child: Icon(icon, color: color, size: 30),\n          ),\n          const SizedBox(width: 16),\n          Expanded(\n            child: Column(\n              crossAxisAlignment: CrossAxisAlignment.start,\n              children: [\n                Row(\n                  children: [\n                    Expanded(\n                      child: Text(\n                        name,\n                        style: const TextStyle(\n                          fontWeight: FontWeight.bold,\n                          fontSize: 16,\n                        ),\n                      ),\n                    ),\n                    if (isVerified)\n                      const Icon(\n                        Icons.verified,\n                        color: Color(0xFF00D4AA),\n                        size: 20,\n                      ),\n                  ],\n                ),\n                const SizedBox(height: 4),\n                Text(\n                  title,\n                  style: TextStyle(\n                    color: Colors.grey[600],\n                    fontSize: 13,\n                  ),\n                ),\n                const SizedBox(height: 8),\n                Row(\n                  children: [\n                    const Icon(\n                      Icons.star,\n                      color: Color(0xFFFFB800),\n                      size: 16,\n                    ),\n                    const SizedBox(width: 4),\n                    Text(\n                      rating,\n                      style: const TextStyle(\n                        fontWeight: FontWeight.bold,\n                        fontSize: 13,\n                      ),\n                    ),\n                    const SizedBox(width: 12),\n                    Text(\n                      projects,\n                      style: TextStyle(\n                        color: Colors.grey[600],\n                        fontSize: 12,\n                      ),\n                    ),\n                  ],\n                ),\n              ],\n            ),\n          ),\n          Column(\n            crossAxisAlignment: CrossAxisAlignment.end,\n            children: [\n              Text(\n                rate,\n                style: TextStyle(\n                  fontWeight: FontWeight.bold,\n                  fontSize: 16,\n                  color: color,\n                ),\n              ),\n              const SizedBox(height: 8),\n              ElevatedButton(\n                onPressed: () {},\n                style: ElevatedButton.styleFrom(\n                  backgroundColor: color,\n                  foregroundColor: Colors.white,\n                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),\n                  shape: RoundedRectangleBorder(\n                    borderRadius: BorderRadius.circular(8),\n                  ),\n                  minimumSize: Size.zero,\n                ),\n                child: const Text(\n                  'Chat',\n                  style: TextStyle(fontSize: 12),\n                ),\n              ),\n            ],\n          ),\n        ],\n      ),\n    );\n  }\n\n  Widget _buildProductCard(String name, String price, String rating, String sold) {\n    return Container(\n      decoration: BoxDecoration(\n        color: Colors.grey[100],\n        borderRadius: BorderRadius.circular(12),\n      ),\n      child: Column(\n        crossAxisAlignment: CrossAxisAlignment.start,\n        children: [\n          Container(\n            height: 120,\n            decoration: BoxDecoration(\n              color: Colors.grey[300],\n              borderRadius: const BorderRadius.only(\n                topLeft: Radius.circular(12),\n                topRight: Radius.circular(12),\n              ),\n              gradient: LinearGradient(\n                colors: [\n                  Colors.purple.withOpacity(0.3),\n                  Colors.blue.withOpacity(0.3),\n                ],\n              ),\n            ),\n            child: const Center(\n              child: Icon(Icons.shopping_bag, size: 48, color: Colors.white),\n            ),\n          ),\n          Expanded(\n            child: Padding(\n              padding: const EdgeInsets.all(12),\n              child: Column(\n                crossAxisAlignment: CrossAxisAlignment.start,\n                children: [\n                  Text(\n                    name,\n                    style: const TextStyle(\n                      fontWeight: FontWeight.bold,\n                      fontSize: 14,\n                    ),\n                    maxLines: 1,\n                    overflow: TextOverflow.ellipsis,\n                  ),\n                  const SizedBox(height: 4),\n                  Text(\n                    price,\n                    style: const TextStyle(\n                      color: Color(0xFF6C63FF),\n                      fontWeight: FontWeight.bold,\n                      fontSize: 16,\n                    ),\n                  ),\n                  const Spacer(),\n                  Row(\n                    children: [\n                      const Icon(\n                        Icons.star,\n                        color: Color(0xFFFFB800),\n                        size: 14,\n                      ),\n                      const SizedBox(width: 4),\n                      Text(\n                        rating,\n                        style: const TextStyle(fontSize: 12),\n                      ),\n                      const Spacer(),\n                      Text(\n                        sold,\n                        style: TextStyle(\n                          fontSize: 11,\n                          color: Colors.grey[600],\n                        ),\n                      ),\n                    ],\n                  ),\n                ],\n              ),\n            ),\n          ),\n        ],\n      ),\n    );\n  }\n\n  Widget _buildServiceCard(\n    String title,\n    String description,\n    String price,\n    IconData icon,\n    Color color,\n  ) {\n    return Container(\n      margin: const EdgeInsets.only(bottom: 12),\n      padding: const EdgeInsets.all(16),\n      decoration: BoxDecoration(\n        color: Colors.grey[100],\n        borderRadius: BorderRadius.circular(12),\n      ),\n      child: Row(\n        children: [\n          Container(\n            padding: const EdgeInsets.all(12),\n            decoration: BoxDecoration(\n              color: color.withOpacity(0.1),\n              borderRadius: BorderRadius.circular(10),\n            ),\n            child: Icon(icon, color: color, size: 28),\n          ),\n          const SizedBox(width: 16),\n          Expanded(\n            child: Column(\n              crossAxisAlignment: CrossAxisAlignment.start,\n              children: [\n                Text(\n                  title,\n                  style: const TextStyle(\n                    fontWeight: FontWeight.bold,\n                    fontSize: 16,\n                  ),\n                ),\n                const SizedBox(height: 4),\n                Text(\n                  description,\n                  style: TextStyle(\n                    color: Colors.grey[600],\n                    fontSize: 13,\n                  ),\n                ),\n                const SizedBox(height: 8),\n                Text(\n                  price,\n                  style: TextStyle(\n                    color: color,\n                    fontWeight: FontWeight.bold,\n                    fontSize: 14,\n                  ),\n                ),\n              ],\n            ),\n          ),\n          const Icon(Icons.chevron_right, color: Colors.grey),\n        ],\n      ),\n    );\n  }\n}\n
+import 'package:flutter/material.dart';
+
+class MarketScreen extends StatelessWidget {
+  const MarketScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            'Nexora Market',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.shopping_cart_outlined),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: const Icon(Icons.favorite_border),
+              onPressed: () {},
+            ),
+          ],
+          bottom: const TabBar(
+            indicatorColor: Color(0xFF6C63FF),
+            labelColor: Color(0xFF6C63FF),
+            unselectedLabelColor: Colors.grey,
+            tabs: [
+              Tab(text: 'Freelancers'),
+              Tab(text: 'Products'),
+              Tab(text: 'Services'),
+            ],
+          ),
+        ),
+        body: TabBarView(
+          children: [
+            _buildFreelancersTab(),
+            _buildProductsTab(),
+            _buildServicesTab(),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {},
+          backgroundColor: const Color(0xFF6C63FF),
+          icon: const Icon(Icons.add, color: Colors.white),
+          label: const Text(
+            'Sell / Offer',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFreelancersTab() {
+    return ListView(
+      padding: const EdgeInsets.all(16),
+      children: [
+        _buildSearchBar(),
+        const SizedBox(height: 16),
+        const Text(
+          'Top Freelancers',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: 12),
+        _buildFreelancerCard(
+          'Sarah Design Pro',
+          'UI/UX Designer',
+          '\$50/hour',
+          '4.9',
+          '127 projects',
+          Icons.design_services,
+          const Color(0xFF6C63FF),
+          true,
+        ),
+        _buildFreelancerCard(
+          'John Code Master',
+          'Full Stack Developer',
+          '\$75/hour',
+          '5.0',
+          '243 projects',
+          Icons.code,
+          const Color(0xFF00D4AA),
+          true,
+        ),
+        _buildFreelancerCard(
+          'Emma Content Writer',
+          'Content & Copywriter',
+          '\$30/hour',
+          '4.8',
+          '89 projects',
+          Icons.edit_note,
+          const Color(0xFFFF6B6B),
+          false,
+        ),
+        _buildFreelancerCard(
+          'Mike Video Expert',
+          'Video Editor',
+          '\$45/hour',
+          '4.7',
+          '156 projects',
+          Icons.video_library,
+          const Color(0xFFFFB800),
+          false,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildProductsTab() {
+    return GridView.builder(
+      padding: const EdgeInsets.all(16),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: 0.75,
+        crossAxisSpacing: 12,
+        mainAxisSpacing: 12,
+      ),
+      itemCount: 10,
+      itemBuilder: (context, index) {
+        return _buildProductCard(
+          'Product ${index + 1}',
+          '\$${(index + 1) * 25}.99',
+          '4.${5 + (index % 5)}',
+          '${(index + 1) * 12} sold',
+        );
+      },
+    );
+  }
+
+  Widget _buildServicesTab() {
+    return ListView(
+      padding: const EdgeInsets.all(16),
+      children: [
+        _buildSearchBar(),
+        const SizedBox(height: 16),
+        const Text(
+          'Popular Services',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: 12),
+        _buildServiceCard(
+          'Logo Design',
+          'Professional logo design for your brand',
+          'Starting at \$99',
+          Icons.palette,
+          const Color(0xFF6C63FF),
+        ),
+        _buildServiceCard(
+          'Web Development',
+          'Custom website development from scratch',
+          'Starting at \$499',
+          Icons.language,
+          const Color(0xFF00D4AA),
+        ),
+        _buildServiceCard(
+          'SEO Optimization',
+          'Boost your website ranking on Google',
+          'Starting at \$199',
+          Icons.trending_up,
+          const Color(0xFFFF6B6B),
+        ),
+        _buildServiceCard(
+          'Social Media Marketing',
+          'Grow your social media presence',
+          'Starting at \$149',
+          Icons.share,
+          const Color(0xFFFFB800),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSearchBar() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      decoration: BoxDecoration(
+        color: Colors.grey[100],
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: const TextField(
+        decoration: InputDecoration(
+          hintText: 'Search...',
+          border: InputBorder.none,
+          icon: Icon(Icons.search, color: Colors.grey),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFreelancerCard(
+    String name,
+    String title,
+    String rate,
+    String rating,
+    String projects,
+    IconData icon,
+    Color color,
+    bool isVerified,
+  ) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.grey[100],
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 60,
+            height: 60,
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(icon, color: color, size: 30),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        name,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                    if (isVerified)
+                      const Icon(
+                        Icons.verified,
+                        color: Color(0xFF00D4AA),
+                        size: 20,
+                      ),
+                  ],
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  title,
+                  style: TextStyle(
+                    color: Colors.grey[600],
+                    fontSize: 13,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.star,
+                      color: Color(0xFFFFB800),
+                      size: 16,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      rating,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Text(
+                      projects,
+                      style: TextStyle(
+                        color: Colors.grey[600],
+                        fontSize: 12,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                rate,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  color: color,
+                ),
+              ),
+              const SizedBox(height: 8),
+              ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: color,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  minimumSize: Size.zero,
+                ),
+                child: const Text(
+                  'Chat',
+                  style: TextStyle(fontSize: 12),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildProductCard(String name, String price, String rating, String sold) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.grey[100],
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: 120,
+            decoration: BoxDecoration(
+              color: Colors.grey[300],
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(12),
+                topRight: Radius.circular(12),
+              ),
+              gradient: LinearGradient(
+                colors: [
+                  Colors.purple.withOpacity(0.3),
+                  Colors.blue.withOpacity(0.3),
+                ],
+              ),
+            ),
+            child: const Center(
+              child: Icon(Icons.shopping_bag, size: 48, color: Colors.white),
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    name,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    price,
+                    style: const TextStyle(
+                      color: Color(0xFF6C63FF),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                  const Spacer(),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.star,
+                        color: Color(0xFFFFB800),
+                        size: 14,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        rating,
+                        style: const TextStyle(fontSize: 12),
+                      ),
+                      const Spacer(),
+                      Text(
+                        sold,
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: Colors.grey[600],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildServiceCard(
+    String title,
+    String description,
+    String price,
+    IconData icon,
+    Color color,
+  ) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.grey[100],
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Icon(icon, color: color, size: 28),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  description,
+                  style: TextStyle(
+                    color: Colors.grey[600],
+                    fontSize: 13,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  price,
+                  style: TextStyle(
+                    color: color,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const Icon(Icons.chevron_right, color: Colors.grey),
+        ],
+      ),
+    );
+  }
+}

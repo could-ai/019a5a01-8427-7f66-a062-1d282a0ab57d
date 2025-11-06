@@ -1,1 +1,350 @@
-import 'package:flutter/material.dart';\n\nclass EarnScreen extends StatelessWidget {\n  const EarnScreen({super.key});\n\n  @override\n  Widget build(BuildContext context) {\n    return Scaffold(\n      appBar: AppBar(\n        title: const Text(\n          'Nexora Earn',\n          style: TextStyle(fontWeight: FontWeight.bold),\n        ),\n        actions: [\n          IconButton(\n            icon: const Icon(Icons.card_giftcard),\n            onPressed: () {},\n          ),\n        ],\n      ),\n      body: SingleChildScrollView(\n        child: Column(\n          crossAxisAlignment: CrossAxisAlignment.start,\n          children: [\n            // Coins Balance\n            Container(\n              margin: const EdgeInsets.all(16),\n              padding: const EdgeInsets.all(24),\n              decoration: BoxDecoration(\n                gradient: const LinearGradient(\n                  colors: [Color(0xFFFFB800), Color(0xFFFF9500)],\n                  begin: Alignment.topLeft,\n                  end: Alignment.bottomRight,\n                ),\n                borderRadius: BorderRadius.circular(20),\n                boxShadow: [\n                  BoxShadow(\n                    color: const Color(0xFFFFB800).withOpacity(0.3),\n                    blurRadius: 20,\n                    offset: const Offset(0, 10),\n                  ),\n                ],\n              ),\n              child: Column(\n                crossAxisAlignment: CrossAxisAlignment.start,\n                children: [\n                  Row(\n                    mainAxisAlignment: MainAxisAlignment.spaceBetween,\n                    children: [\n                      const Text(\n                        'Your Coins',\n                        style: TextStyle(\n                          color: Colors.white70,\n                          fontSize: 14,\n                        ),\n                      ),\n                      Container(\n                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),\n                        decoration: BoxDecoration(\n                          color: Colors.white,\n                          borderRadius: BorderRadius.circular(20),\n                        ),\n                        child: const Row(\n                          children: [\n                            Icon(\n                              Icons.workspace_premium,\n                              color: Color(0xFFFFB800),\n                              size: 16,\n                            ),\n                            SizedBox(width: 4),\n                            Text(\n                              'VIP',\n                              style: TextStyle(\n                                color: Color(0xFFFFB800),\n                                fontSize: 12,\n                                fontWeight: FontWeight.bold,\n                              ),\n                            ),\n                          ],\n                        ),\n                      ),\n                    ],\n                  ),\n                  const SizedBox(height: 8),\n                  const Row(\n                    children: [\n                      Icon(\n                        Icons.monetization_on,\n                        color: Colors.white,\n                        size: 40,\n                      ),\n                      SizedBox(width: 8),\n                      Text(\n                        '24,567',\n                        style: TextStyle(\n                          color: Colors.white,\n                          fontSize: 36,\n                          fontWeight: FontWeight.bold,\n                        ),\n                      ),\n                    ],\n                  ),\n                  const SizedBox(height: 4),\n                  const Text(\n                    '≈ \$245.67 USD',\n                    style: TextStyle(\n                      color: Colors.white70,\n                      fontSize: 14,\n                    ),\n                  ),\n                  const SizedBox(height: 16),\n                  ElevatedButton(\n                    onPressed: () {},\n                    style: ElevatedButton.styleFrom(\n                      backgroundColor: Colors.white,\n                      foregroundColor: const Color(0xFFFFB800),\n                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),\n                      shape: RoundedRectangleBorder(\n                        borderRadius: BorderRadius.circular(12),\n                      ),\n                    ),\n                    child: const Text(\n                      'Withdraw to Wallet',\n                      style: TextStyle(fontWeight: FontWeight.bold),\n                    ),\n                  ),\n                ],\n              ),\n            ),\n            // Daily Streak\n            Container(\n              margin: const EdgeInsets.symmetric(horizontal: 16),\n              padding: const EdgeInsets.all(16),\n              decoration: BoxDecoration(\n                color: const Color(0xFF6C63FF).withOpacity(0.1),\n                borderRadius: BorderRadius.circular(12),\n                border: Border.all(\n                  color: const Color(0xFF6C63FF).withOpacity(0.3),\n                ),\n              ),\n              child: Row(\n                children: [\n                  Container(\n                    padding: const EdgeInsets.all(12),\n                    decoration: BoxDecoration(\n                      color: const Color(0xFF6C63FF),\n                      borderRadius: BorderRadius.circular(10),\n                    ),\n                    child: const Icon(\n                      Icons.local_fire_department,\n                      color: Colors.white,\n                      size: 24,\n                    ),\n                  ),\n                  const SizedBox(width: 16),\n                  const Expanded(\n                    child: Column(\n                      crossAxisAlignment: CrossAxisAlignment.start,\n                      children: [\n                        Text(\n                          '7 Day Streak! 🔥',\n                          style: TextStyle(\n                            fontWeight: FontWeight.bold,\n                            fontSize: 16,\n                          ),\n                        ),\n                        SizedBox(height: 2),\n                        Text(\n                          'Come back tomorrow for bonus coins',\n                          style: TextStyle(\n                            color: Colors.grey,\n                            fontSize: 12,\n                          ),\n                        ),\n                      ],\n                    ),\n                  ),\n                  const Text(\n                    '+500',\n                    style: TextStyle(\n                      fontWeight: FontWeight.bold,\n                      fontSize: 18,\n                      color: Color(0xFF6C63FF),\n                    ),\n                  ),\n                ],\n              ),\n            ),\n            const SizedBox(height: 24),\n            // Earn Ways\n            const Padding(\n              padding: EdgeInsets.symmetric(horizontal: 16),\n              child: Text(\n                'Ways to Earn',\n                style: TextStyle(\n                  fontSize: 18,\n                  fontWeight: FontWeight.bold,\n                ),\n              ),\n            ),\n            const SizedBox(height: 12),\n            _buildEarnCard(\n              'Watch Videos',\n              'Watch ads and videos to earn coins',\n              Icons.play_circle,\n              const Color(0xFFFF6B6B),\n              '+50 coins per video',\n            ),\n            _buildEarnCard(\n              'Complete Tasks',\n              'Finish daily tasks and challenges',\n              Icons.task_alt,\n              const Color(0xFF00D4AA),\n              '+100-500 coins',\n            ),\n            _buildEarnCard(\n              'Invite Friends',\n              'Get rewards for each referral',\n              Icons.group_add,\n              const Color(0xFF6C63FF),\n              '+1000 coins per friend',\n            ),\n            _buildEarnCard(\n              'Daily Check-in',\n              'Login daily to claim rewards',\n              Icons.event_available,\n              const Color(0xFFFFB800),\n              '+20-200 coins',\n            ),\n            const SizedBox(height: 24),\n            // VIP Upgrade\n            Container(\n              margin: const EdgeInsets.all(16),\n              padding: const EdgeInsets.all(20),\n              decoration: BoxDecoration(\n                gradient: const LinearGradient(\n                  colors: [Color(0xFF6C63FF), Color(0xFF9D8CFF)],\n                  begin: Alignment.topLeft,\n                  end: Alignment.bottomRight,\n                ),\n                borderRadius: BorderRadius.circular(16),\n              ),\n              child: Column(\n                crossAxisAlignment: CrossAxisAlignment.start,\n                children: [\n                  const Row(\n                    children: [\n                      Icon(\n                        Icons.workspace_premium,\n                        color: Colors.white,\n                        size: 32,\n                      ),\n                      SizedBox(width: 12),\n                      Text(\n                        'Upgrade to VIP',\n                        style: TextStyle(\n                          color: Colors.white,\n                          fontSize: 20,\n                          fontWeight: FontWeight.bold,\n                        ),\n                      ),\n                    ],\n                  ),\n                  const SizedBox(height: 12),\n                  const Text(\n                    '✓ 2× rewards on all activities\n✓ Exclusive daily bonuses\n✓ Priority support\n✓ No ads experience',\n                    style: TextStyle(\n                      color: Colors.white,\n                      fontSize: 14,\n                      height: 1.5,\n                    ),\n                  ),\n                  const SizedBox(height: 16),\n                  ElevatedButton(\n                    onPressed: () {},\n                    style: ElevatedButton.styleFrom(\n                      backgroundColor: Colors.white,\n                      foregroundColor: const Color(0xFF6C63FF),\n                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),\n                      shape: RoundedRectangleBorder(\n                        borderRadius: BorderRadius.circular(12),\n                      ),\n                    ),\n                    child: const Text(\n                      'Get VIP - \$9.99/month',\n                      style: TextStyle(fontWeight: FontWeight.bold),\n                    ),\n                  ),\n                ],\n              ),\n            ),\n            const SizedBox(height: 80),\n          ],\n        ),\n      ),\n    );\n  }\n\n  Widget _buildEarnCard(String title, String subtitle, IconData icon, Color color, String reward) {\n    return Container(\n      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),\n      padding: const EdgeInsets.all(16),\n      decoration: BoxDecoration(\n        color: Colors.grey[100],\n        borderRadius: BorderRadius.circular(12),\n      ),\n      child: Row(\n        children: [\n          Container(\n            padding: const EdgeInsets.all(12),\n            decoration: BoxDecoration(\n              color: color.withOpacity(0.1),\n              borderRadius: BorderRadius.circular(10),\n            ),\n            child: Icon(icon, color: color, size: 24),\n          ),\n          const SizedBox(width: 16),\n          Expanded(\n            child: Column(\n              crossAxisAlignment: CrossAxisAlignment.start,\n              children: [\n                Text(\n                  title,\n                  style: const TextStyle(\n                    fontWeight: FontWeight.bold,\n                    fontSize: 16,\n                  ),\n                ),\n                const SizedBox(height: 2),\n                Text(\n                  subtitle,\n                  style: TextStyle(\n                    color: Colors.grey[600],\n                    fontSize: 13,\n                  ),\n                ),\n                const SizedBox(height: 4),\n                Text(\n                  reward,\n                  style: TextStyle(\n                    color: color,\n                    fontSize: 12,\n                    fontWeight: FontWeight.bold,\n                  ),\n                ),\n              ],\n            ),\n          ),\n          const Icon(Icons.chevron_right, color: Colors.grey),\n        ],\n      ),\n    );\n  }\n}\n
+import 'package:flutter/material.dart';
+
+class EarnScreen extends StatelessWidget {
+  const EarnScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Nexora Earn',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.card_giftcard),
+            onPressed: () {},
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              margin: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(24),
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFFFFB800), Color(0xFFFF9500)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color(0xFFFFB800).withOpacity(0.3),
+                    blurRadius: 20,
+                    offset: const Offset(0, 10),
+                  ),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Your Coins',
+                        style: TextStyle(
+                          color: Colors.white70,
+                          fontSize: 14,
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: const Row(
+                          children: [
+                            Icon(
+                              Icons.workspace_premium,
+                              color: Color(0xFFFFB800),
+                              size: 16,
+                            ),
+                            SizedBox(width: 4),
+                            Text(
+                              'VIP',
+                              style: TextStyle(
+                                color: Color(0xFFFFB800),
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  const Row(
+                    children: [
+                      Icon(
+                        Icons.monetization_on,
+                        color: Colors.white,
+                        size: 40,
+                      ),
+                      SizedBox(width: 8),
+                      Text(
+                        '24,567',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 36,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 4),
+                  const Text(
+                    '≈ \$245.67 USD',
+                    style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 14,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      foregroundColor: const Color(0xFFFFB800),
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    child: const Text(
+                      'Withdraw to Wallet',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: const Color(0xFF6C63FF).withOpacity(0.1),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: const Color(0xFF6C63FF).withOpacity(0.3),
+                ),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF6C63FF),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: const Icon(
+                      Icons.local_fire_department,
+                      color: Colors.white,
+                      size: 24,
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  const Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '7 Day Streak! 🔥',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                        SizedBox(height: 2),
+                        Text(
+                          'Come back tomorrow for bonus coins',
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Text(
+                    '+500',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      color: Color(0xFF6C63FF),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 24),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                'Ways to Earn',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            const SizedBox(height: 12),
+            _buildEarnCard(
+              'Watch Videos',
+              'Watch ads and videos to earn coins',
+              Icons.play_circle,
+              const Color(0xFFFF6B6B),
+              '+50 coins per video',
+            ),
+            _buildEarnCard(
+              'Complete Tasks',
+              'Finish daily tasks and challenges',
+              Icons.task_alt,
+              const Color(0xFF00D4AA),
+              '+100-500 coins',
+            ),
+            _buildEarnCard(
+              'Invite Friends',
+              'Get rewards for each referral',
+              Icons.group_add,
+              const Color(0xFF6C63FF),
+              '+1000 coins per friend',
+            ),
+            _buildEarnCard(
+              'Daily Check-in',
+              'Login daily to claim rewards',
+              Icons.event_available,
+              const Color(0xFFFFB800),
+              '+20-200 coins',
+            ),
+            const SizedBox(height: 24),
+            Container(
+              margin: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF6C63FF), Color(0xFF9D8CFF)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Row(
+                    children: [
+                      Icon(
+                        Icons.workspace_premium,
+                        color: Colors.white,
+                        size: 32,
+                      ),
+                      SizedBox(width: 12),
+                      Text(
+                        'Upgrade to VIP',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  const Text(
+                    '✓ 2× rewards on all activities\n✓ Exclusive daily bonuses\n✓ Priority support\n✓ No ads experience',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      height: 1.5,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      foregroundColor: const Color(0xFF6C63FF),
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    child: const Text(
+                      'Get VIP - \$9.99/month',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 80),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildEarnCard(String title, String subtitle, IconData icon, Color color, String reward) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.grey[100],
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Icon(icon, color: color, size: 24),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  subtitle,
+                  style: TextStyle(
+                    color: Colors.grey[600],
+                    fontSize: 13,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  reward,
+                  style: TextStyle(
+                    color: color,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const Icon(Icons.chevron_right, color: Colors.grey),
+        ],
+      ),
+    );
+  }
+}

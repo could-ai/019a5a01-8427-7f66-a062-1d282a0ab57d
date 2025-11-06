@@ -1,1 +1,192 @@
-import 'package:flutter/material.dart';\n\nclass ChatScreen extends StatelessWidget {\n  const ChatScreen({super.key});\n\n  @override\n  Widget build(BuildContext context) {\n    return Scaffold(\n      appBar: AppBar(\n        title: const Text(\n          'Nexora Chat',\n          style: TextStyle(fontWeight: FontWeight.bold),\n        ),\n        actions: [\n          IconButton(\n            icon: const Icon(Icons.search),\n            onPressed: () {},\n          ),\n          IconButton(\n            icon: const Icon(Icons.more_vert),\n            onPressed: () {},\n          ),\n        ],\n      ),\n      body: Column(\n        children: [\n          // Feature Cards\n          Container(\n            padding: const EdgeInsets.all(16),\n            child: SingleChildScrollView(\n              scrollDirection: Axis.horizontal,\n              child: Row(\n                children: [\n                  _buildFeatureCard(\n                    context,\n                    Icons.smart_toy,\n                    'NexoBot AI',\n                    const Color(0xFF6C63FF),\n                  ),\n                  const SizedBox(width: 12),\n                  _buildFeatureCard(\n                    context,\n                    Icons.groups,\n                    'Groups',\n                    const Color(0xFF00D4AA),\n                  ),\n                  const SizedBox(width: 12),\n                  _buildFeatureCard(\n                    context,\n                    Icons.call,\n                    'Calls',\n                    const Color(0xFFFF6B6B),\n                  ),\n                  const SizedBox(width: 12),\n                  _buildFeatureCard(\n                    context,\n                    Icons.lock,\n                    'Hidden',\n                    const Color(0xFFFFB800),\n                  ),\n                ],\n              ),\n            ),\n          ),\n          const Divider(height: 1),\n          // Chat List\n          Expanded(\n            child: ListView.builder(\n              itemCount: 10,\n              itemBuilder: (context, index) {\n                return _buildChatTile(\n                  context,\n                  'User ${index + 1}',\n                  'Last message preview goes here...',\n                  '${index + 1}m ago',\n                  index % 3 == 0,\n                );\n              },\n            ),\n          ),\n        ],\n      ),\n      floatingActionButton: FloatingActionButton(\n        onPressed: () {},\n        backgroundColor: const Color(0xFF6C63FF),\n        child: const Icon(Icons.edit, color: Colors.white),\n      ),\n    );\n  }\n\n  Widget _buildFeatureCard(BuildContext context, IconData icon, String label, Color color) {\n    return Container(\n      width: 100,\n      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),\n      decoration: BoxDecoration(\n        color: color.withOpacity(0.1),\n        borderRadius: BorderRadius.circular(12),\n        border: Border.all(color: color.withOpacity(0.3)),\n      ),\n      child: Column(\n        children: [\n          Icon(icon, color: color, size: 28),\n          const SizedBox(height: 4),\n          Text(\n            label,\n            style: TextStyle(\n              fontSize: 12,\n              fontWeight: FontWeight.w600,\n              color: color,\n            ),\n          ),\n        ],\n      ),\n    );\n  }\n\n  Widget _buildChatTile(BuildContext context, String name, String message, String time, bool hasUnread) {\n    return ListTile(\n      leading: CircleAvatar(\n        backgroundColor: const Color(0xFF6C63FF),\n        child: Text(\n          name[0],\n          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),\n        ),\n      ),\n      title: Row(\n        children: [\n          Expanded(\n            child: Text(\n              name,\n              style: TextStyle(\n                fontWeight: hasUnread ? FontWeight.bold : FontWeight.normal,\n              ),\n            ),\n          ),\n          Text(\n            time,\n            style: TextStyle(\n              fontSize: 12,\n              color: hasUnread ? const Color(0xFF6C63FF) : Colors.grey,\n            ),\n          ),\n        ],\n      ),\n      subtitle: Row(\n        children: [\n          if (hasUnread)\n            Container(\n              margin: const EdgeInsets.only(right: 8),\n              padding: const EdgeInsets.all(2),\n              decoration: const BoxDecoration(\n                color: Color(0xFF6C63FF),\n                shape: BoxShape.circle,\n              ),\n              child: const Icon(\n                Icons.check,\n                size: 12,\n                color: Colors.white,\n              ),\n            ),\n          Expanded(\n            child: Text(\n              message,\n              maxLines: 1,\n              overflow: TextOverflow.ellipsis,\n              style: TextStyle(\n                color: hasUnread ? Colors.black87 : Colors.grey,\n                fontWeight: hasUnread ? FontWeight.w500 : FontWeight.normal,\n              ),\n            ),\n          ),\n        ],\n      ),\n      trailing: hasUnread\n          ? Container(\n              padding: const EdgeInsets.all(6),\n              decoration: const BoxDecoration(\n                color: Color(0xFF6C63FF),\n                shape: BoxShape.circle,\n              ),\n              child: const Text(\n                '3',\n                style: TextStyle(\n                  color: Colors.white,\n                  fontSize: 10,\n                  fontWeight: FontWeight.bold,\n                ),\n              ),\n            )\n          : null,\n      onTap: () {},\n    );\n  }\n}\n
+import 'package:flutter/material.dart';
+
+class ChatScreen extends StatelessWidget {
+  const ChatScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Nexora Chat',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: const Icon(Icons.more_vert),
+            onPressed: () {},
+          ),
+        ],
+      ),
+      body: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(16),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  _buildFeatureCard(
+                    context,
+                    Icons.smart_toy,
+                    'NexoBot AI',
+                    const Color(0xFF6C63FF),
+                  ),
+                  const SizedBox(width: 12),
+                  _buildFeatureCard(
+                    context,
+                    Icons.groups,
+                    'Groups',
+                    const Color(0xFF00D4AA),
+                  ),
+                  const SizedBox(width: 12),
+                  _buildFeatureCard(
+                    context,
+                    Icons.call,
+                    'Calls',
+                    const Color(0xFFFF6B6B),
+                  ),
+                  const SizedBox(width: 12),
+                  _buildFeatureCard(
+                    context,
+                    Icons.lock,
+                    'Hidden',
+                    const Color(0xFFFFB800),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const Divider(height: 1),
+          Expanded(
+            child: ListView.builder(
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                return _buildChatTile(
+                  context,
+                  'User ${index + 1}',
+                  'Last message preview goes here...',
+                  '${index + 1}m ago',
+                  index % 3 == 0,
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        backgroundColor: const Color(0xFF6C63FF),
+        child: const Icon(Icons.edit, color: Colors.white),
+      ),
+    );
+  }
+
+  Widget _buildFeatureCard(BuildContext context, IconData icon, String label, Color color) {
+    return Container(
+      width: 100,
+      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: color.withOpacity(0.3)),
+      ),
+      child: Column(
+        children: [
+          Icon(icon, color: color, size: 28),
+          const SizedBox(height: 4),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: color,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildChatTile(BuildContext context, String name, String message, String time, bool hasUnread) {
+    return ListTile(
+      leading: CircleAvatar(
+        backgroundColor: const Color(0xFF6C63FF),
+        child: Text(
+          name[0],
+          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+      ),
+      title: Row(
+        children: [
+          Expanded(
+            child: Text(
+              name,
+              style: TextStyle(
+                fontWeight: hasUnread ? FontWeight.bold : FontWeight.normal,
+              ),
+            ),
+          ),
+          Text(
+            time,
+            style: TextStyle(
+              fontSize: 12,
+              color: hasUnread ? const Color(0xFF6C63FF) : Colors.grey,
+            ),
+          ),
+        ],
+      ),
+      subtitle: Row(
+        children: [
+          if (hasUnread)
+            Container(
+              margin: const EdgeInsets.only(right: 8),
+              padding: const EdgeInsets.all(2),
+              decoration: const BoxDecoration(
+                color: Color(0xFF6C63FF),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.check,
+                size: 12,
+                color: Colors.white,
+              ),
+            ),
+          Expanded(
+            child: Text(
+              message,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                color: hasUnread ? Colors.black87 : Colors.grey,
+                fontWeight: hasUnread ? FontWeight.w500 : FontWeight.normal,
+              ),
+            ),
+          ),
+        ],
+      ),
+      trailing: hasUnread
+          ? Container(
+              padding: const EdgeInsets.all(6),
+              decoration: const BoxDecoration(
+                color: Color(0xFF6C63FF),
+                shape: BoxShape.circle,
+              ),
+              child: const Text(
+                '3',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            )
+          : null,
+      onTap: () {},
+    );
+  }
+}

@@ -1,1 +1,234 @@
-import 'package:flutter/material.dart';\n\nclass VideoScreen extends StatelessWidget {\n  const VideoScreen({super.key});\n\n  @override\n  Widget build(BuildContext context) {\n    return Scaffold(\n      appBar: AppBar(\n        title: const Text(\n          'Nexora Video',\n          style: TextStyle(fontWeight: FontWeight.bold),\n        ),\n        actions: [\n          IconButton(\n            icon: const Icon(Icons.search),\n            onPressed: () {},\n          ),\n          IconButton(\n            icon: const Icon(Icons.upload_file),\n            onPressed: () {},\n          ),\n        ],\n      ),\n      body: Column(\n        children: [\n          // Category Tabs\n          Container(\n            padding: const EdgeInsets.symmetric(vertical: 8),\n            child: SingleChildScrollView(\n              scrollDirection: Axis.horizontal,\n              child: Row(\n                children: [\n                  const SizedBox(width: 16),\n                  _buildCategoryChip('For You', true),\n                  _buildCategoryChip('Trending', false),\n                  _buildCategoryChip('Education', false),\n                  _buildCategoryChip('Entertainment', false),\n                  _buildCategoryChip('Tech', false),\n                  _buildCategoryChip('Business', false),\n                  const SizedBox(width: 16),\n                ],\n              ),\n            ),\n          ),\n          const Divider(height: 1),\n          // Video Feed\n          Expanded(\n            child: ListView.builder(\n              itemCount: 10,\n              itemBuilder: (context, index) {\n                return _buildVideoCard(\n                  context,\n                  'Amazing Video Title ${index + 1}',\n                  'Creator Name',\n                  '${(index + 1) * 125}K views',\n                  '${index + 1}h ago',\n                );\n              },\n            ),\n          ),\n        ],\n      ),\n    );\n  }\n\n  Widget _buildCategoryChip(String label, bool isSelected) {\n    return Container(\n      margin: const EdgeInsets.only(right: 8),\n      child: ChoiceChip(\n        label: Text(label),\n        selected: isSelected,\n        onSelected: (selected) {},\n        selectedColor: const Color(0xFF6C63FF),\n        labelStyle: TextStyle(\n          color: isSelected ? Colors.white : Colors.black87,\n          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,\n        ),\n        backgroundColor: Colors.grey[200],\n        elevation: 0,\n        pressElevation: 0,\n      ),\n    );\n  }\n\n  Widget _buildVideoCard(BuildContext context, String title, String creator, String views, String time) {\n    return Container(\n      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),\n      child: Column(\n        crossAxisAlignment: CrossAxisAlignment.start,\n        children: [\n          // Video Thumbnail\n          Stack(\n            children: [\n              Container(\n                width: double.infinity,\n                height: 200,\n                decoration: BoxDecoration(\n                  color: Colors.grey[300],\n                  borderRadius: BorderRadius.circular(12),\n                  gradient: LinearGradient(\n                    colors: [\n                      Colors.purple.withOpacity(0.3),\n                      Colors.blue.withOpacity(0.3),\n                    ],\n                  ),\n                ),\n                child: const Icon(\n                  Icons.play_circle_outline,\n                  size: 64,\n                  color: Colors.white,\n                ),\n              ),\n              Positioned(\n                bottom: 8,\n                right: 8,\n                child: Container(\n                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),\n                  decoration: BoxDecoration(\n                    color: Colors.black.withOpacity(0.7),\n                    borderRadius: BorderRadius.circular(4),\n                  ),\n                  child: const Text(\n                    '5:23',\n                    style: TextStyle(\n                      color: Colors.white,\n                      fontSize: 12,\n                      fontWeight: FontWeight.bold,\n                    ),\n                  ),\n                ),\n              ),\n            ],\n          ),\n          const SizedBox(height: 12),\n          // Video Info\n          Row(\n            crossAxisAlignment: CrossAxisAlignment.start,\n            children: [\n              CircleAvatar(\n                backgroundColor: const Color(0xFF6C63FF),\n                child: Text(\n                  creator[0],\n                  style: const TextStyle(\n                    color: Colors.white,\n                    fontWeight: FontWeight.bold,\n                  ),\n                ),\n              ),\n              const SizedBox(width: 12),\n              Expanded(\n                child: Column(\n                  crossAxisAlignment: CrossAxisAlignment.start,\n                  children: [\n                    Text(\n                      title,\n                      style: const TextStyle(\n                        fontWeight: FontWeight.bold,\n                        fontSize: 15,\n                      ),\n                      maxLines: 2,\n                      overflow: TextOverflow.ellipsis,\n                    ),\n                    const SizedBox(height: 4),\n                    Text(\n                      '$creator • $views • $time',\n                      style: TextStyle(\n                        color: Colors.grey[600],\n                        fontSize: 13,\n                      ),\n                    ),\n                  ],\n                ),\n              ),\n              IconButton(\n                icon: const Icon(Icons.more_vert),\n                onPressed: () {},\n                padding: EdgeInsets.zero,\n                constraints: const BoxConstraints(),\n              ),\n            ],\n          ),\n          const SizedBox(height: 12),\n          // Action Buttons\n          Row(\n            mainAxisAlignment: MainAxisAlignment.spaceAround,\n            children: [\n              _buildActionButton(\n                Icons.thumb_up_outlined,\n                '${(12 + (title.length % 10))}K',\n                const Color(0xFF6C63FF),\n              ),\n              _buildActionButton(\n                Icons.comment_outlined,\n                '${(2 + (title.length % 5))}K',\n                const Color(0xFF00D4AA),\n              ),\n              _buildActionButton(\n                Icons.share_outlined,\n                '${(1 + (title.length % 3))}K',\n                const Color(0xFFFFB800),\n              ),\n              _buildActionButton(\n                Icons.bookmark_border,\n                'Save',\n                const Color(0xFFFF6B6B),\n              ),\n            ],\n          ),\n          const Divider(height: 24),\n        ],\n      ),\n    );\n  }\n\n  Widget _buildActionButton(IconData icon, String label, Color color) {\n    return InkWell(\n      onTap: () {},\n      borderRadius: BorderRadius.circular(8),\n      child: Padding(\n        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),\n        child: Row(\n          children: [\n            Icon(icon, color: color, size: 20),\n            const SizedBox(width: 4),\n            Text(\n              label,\n              style: TextStyle(\n                color: color,\n                fontSize: 13,\n                fontWeight: FontWeight.w600,\n              ),\n            ),\n          ],\n        ),\n      ),\n    );\n  }\n}\n
+import 'package:flutter/material.dart';
+
+class VideoScreen extends StatelessWidget {
+  const VideoScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Nexora Video',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: const Icon(Icons.upload_file),
+            onPressed: () {},
+          ),
+        ],
+      ),
+      body: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  const SizedBox(width: 16),
+                  _buildCategoryChip('For You', true),
+                  _buildCategoryChip('Trending', false),
+                  _buildCategoryChip('Education', false),
+                  _buildCategoryChip('Entertainment', false),
+                  _buildCategoryChip('Tech', false),
+                  _buildCategoryChip('Business', false),
+                  const SizedBox(width: 16),
+                ],
+              ),
+            ),
+          ),
+          const Divider(height: 1),
+          Expanded(
+            child: ListView.builder(
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                return _buildVideoCard(
+                  context,
+                  'Amazing Video Title ${index + 1}',
+                  'Creator Name',
+                  '${(index + 1) * 125}K views',
+                  '${index + 1}h ago',
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCategoryChip(String label, bool isSelected) {
+    return Container(
+      margin: const EdgeInsets.only(right: 8),
+      child: ChoiceChip(
+        label: Text(label),
+        selected: isSelected,
+        onSelected: (selected) {},
+        selectedColor: const Color(0xFF6C63FF),
+        labelStyle: TextStyle(
+          color: isSelected ? Colors.white : Colors.black87,
+          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+        ),
+        backgroundColor: Colors.grey[200],
+        elevation: 0,
+        pressElevation: 0,
+      ),
+    );
+  }
+
+  Widget _buildVideoCard(BuildContext context, String title, String creator, String views, String time) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Stack(
+            children: [
+              Container(
+                width: double.infinity,
+                height: 200,
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(12),
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.purple.withOpacity(0.3),
+                      Colors.blue.withOpacity(0.3),
+                    ],
+                  ),
+                ),
+                child: const Icon(
+                  Icons.play_circle_outline,
+                  size: 64,
+                  color: Colors.white,
+                ),
+              ),
+              Positioned(
+                bottom: 8,
+                right: 8,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.7),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: const Text(
+                    '5:23',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CircleAvatar(
+                backgroundColor: const Color(0xFF6C63FF),
+                child: Text(
+                  creator[0],
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      '$creator • $views • $time',
+                      style: TextStyle(
+                        color: Colors.grey[600],
+                        fontSize: 13,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              IconButton(
+                icon: const Icon(Icons.more_vert),
+                onPressed: () {},
+                padding: EdgeInsets.zero,
+                constraints: const BoxConstraints(),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _buildActionButton(
+                Icons.thumb_up_outlined,
+                '${(12 + (title.length % 10))}K',
+                const Color(0xFF6C63FF),
+              ),
+              _buildActionButton(
+                Icons.comment_outlined,
+                '${(2 + (title.length % 5))}K',
+                const Color(0xFF00D4AA),
+              ),
+              _buildActionButton(
+                Icons.share_outlined,
+                '${(1 + (title.length % 3))}K',
+                const Color(0xFFFFB800),
+              ),
+              _buildActionButton(
+                Icons.bookmark_border,
+                'Save',
+                const Color(0xFFFF6B6B),
+              ),
+            ],
+          ),
+          const Divider(height: 24),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildActionButton(IconData icon, String label, Color color) {
+    return InkWell(
+      onTap: () {},
+      borderRadius: BorderRadius.circular(8),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        child: Row(
+          children: [
+            Icon(icon, color: color, size: 20),
+            const SizedBox(width: 4),
+            Text(
+              label,
+              style: TextStyle(
+                color: color,
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
